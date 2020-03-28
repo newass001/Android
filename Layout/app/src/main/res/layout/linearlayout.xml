@@ -13,6 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="One,One"
             android:textColor="@android:color/white" />
 
@@ -21,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
+            android:background="@drawable/shape"
             android:gravity="center"
             android:text="One,Two"
             android:textColor="@android:color/white" />
@@ -29,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="One,Three"
             android:textColor="@android:color/white" />
 
@@ -36,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="One,Four"
             android:textColor="@android:color/white" />
     </LinearLayout>
@@ -48,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="Two,One"
             android:textColor="@android:color/white" />
 
@@ -56,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
+            android:background="@drawable/shape"
             android:gravity="center"
             android:text="Two,Two"
             android:textColor="@android:color/white" />
@@ -64,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="Two,Three"
             android:textColor="@android:color/white" />
 
@@ -71,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="Two,Four"
             android:textColor="@android:color/white" />
     </LinearLayout>
@@ -83,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="Three,One"
             android:textColor="@android:color/white" />
 
@@ -91,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
+            android:background="@drawable/shape"
             android:gravity="center"
             android:text="Three,Two"
             android:textColor="@android:color/white" />
@@ -99,6 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="Three,Three"
             android:textColor="@android:color/white" />
 
@@ -106,6 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="Three,Four"
             android:textColor="@android:color/white" />
     </LinearLayout>
@@ -118,6 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="Four,One"
             android:textColor="@android:color/white" />
 
@@ -126,6 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
+            android:background="@drawable/shape"
             android:gravity="center"
             android:text="Four,Two"
             android:textColor="@android:color/white" />
@@ -134,6 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="Four,Three"
             android:textColor="@android:color/white" />
 
@@ -141,6 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="@drawable/shape"
             android:text="Four,Four"
             android:textColor="@android:color/white" />
     </LinearLayout>
