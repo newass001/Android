@@ -1,4 +1,4 @@
-package com.example.uicomponent;
+package com.example.alertdialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
