@@ -5,19 +5,19 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:src="@drawable/header_logo"
         android:layout_width="match_parent"
         android:layout_height="64dp"
+        android:contentDescription="@string/app_name"
         android:scaleType="center"
-        android:contentDescription="@string/app_name" />
+        android:src="@drawable/header_logo" />
 
     <TableRow>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
-            android:textSize="10sp" />
+            android:hint="Username                                             "
+            android:textSize="20sp" />
     </TableRow>
 
     <TableRow>
@@ -27,6 +27,6 @@
             android:layout_height="wrap_content"
             android:hint="Password"
             android:inputType="textPassword"
-            android:textSize="10sp" />
+            android:textSize="20sp" />
     </TableRow>
 </TableLayout>
