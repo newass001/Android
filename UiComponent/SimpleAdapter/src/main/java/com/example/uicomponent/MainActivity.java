@@ -3,8 +3,12 @@ package com.example.uicomponent;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +39,16 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listview);
         //为ListView设置Adapter
         listView.setAdapter(simpleAdapter);
+
+        //使用Toast显示被选中的列表项的信息
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {   //匿名内部类
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                Toast toast = Toast.makeText(MainActivity.this,name[i],Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
+            }
+        });
 
     }
 }
