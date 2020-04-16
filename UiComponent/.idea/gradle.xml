@@ -11,9 +11,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/OptionsMenu" />
             <option value="$PROJECT_DIR$/SimpleAdapter" />
             <option value="$PROJECT_DIR$/alertdialog" />
-            <option value="$PROJECT_DIR$/menu" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
