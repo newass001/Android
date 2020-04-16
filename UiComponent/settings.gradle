@@ -1,3 +1,4 @@
 rootProject.name='UiComponent'
 include ':SimpleAdapter'
 include ':alertdialog'
+include ':menu'
