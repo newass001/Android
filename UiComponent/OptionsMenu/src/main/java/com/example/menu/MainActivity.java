@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    //选项菜单的菜单项被单击后的回调方法
+    //处理点击事件
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case FONT_10:
