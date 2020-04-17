@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //创建一个List集合,集合的元素是Map
         List<Map<String, Object>> listitems = new ArrayList<Map<String, Object>>();
-        for (int i = 0; i < name.length; i++) {//每一行数据是一个HashMap
+        for (int i = 0; i < name.length; i++) {//每一个HashMap保存一行的数据（一个name,一个image）
             Map<String, Object> listitem = new HashMap<String, Object>();
             listitem.put("name", name[i]);
             listitem.put("image", image[i]);
