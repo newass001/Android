@@ -6,7 +6,6 @@
         android:id="@+id/item_delete"
         android:icon="@android:drawable/ic_menu_delete"
         android:title="Delete"
-        android:titleCondensed="Delete"
         app:showAsAction="ifRoom|withText">
     </item>
 

@@ -1,6 +1,5 @@
 package com.example.contextmenu;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
@@ -13,49 +12,27 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
-
 import java.util.HashMap;
 import java.util.Set;
 
 public class MainActivity extends ListActivity {
 
-    private String[] data = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine","Ten"};
-
+    private String[] data = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"};
     private SelectionAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mAdapter = new SelectionAdapter(this,
-                R.layout.row_list_item, R.id.textView1, data);
+        mAdapter = new SelectionAdapter(this, R.layout.row_list_item, R.id.textView, data);
         setListAdapter(mAdapter);
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-
         getListView().setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-
-            private int nr = 0;
-
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                // TODO Auto-generated method stub
-                return false;
-            }
-
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-                // TODO Auto-generated method stub
-                mAdapter.clearSelection();
-            }
+            private int nr = 0;   //记录被选中的item数
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                // TODO Auto-generated method stub
-
                 nr = 0;
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.context_menu, menu);
@@ -63,53 +40,56 @@ public class MainActivity extends ListActivity {
             }
 
             @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                // TODO Auto-generated method stub
-                switch (item.getItemId()) {
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
 
-                    case R.id.item_delete:
-                        nr = 0;
-                        mAdapter.clearSelection();
-                        mode.finish();
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {  //操作上下文菜单
+                // Respond to clicks on the actions in the CAB
+                switch (item.getItemId()) {
+                    case R.id.item_delete: //点击删除按钮的处理事件
+                        nr = 0;            //重置选中条目数
+                        mAdapter.clearSelection();  //重置记录item选中状态的haspmap(即将所有item重置为未选中状态时的背景颜色)
+                        mode.finish();     //关闭ActionMode
                 }
                 return false;
             }
 
             @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position,
-                                                  long id, boolean checked) {
-                // TODO Auto-generated method stub
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {//item选中状态变化时的响应
+                // Here you can do something when items are selected/de-selected
                 if (checked) {
                     nr++;
-                    mAdapter.setNewSelection(position, checked);
+                    mAdapter.setNewSelection(position, true);
                 } else {
                     nr--;
                     mAdapter.removeSelection(position);
                 }
-                mode.setTitle(nr + " selected");
-
+                mode.setTitle(nr + " selected");   //显示选中条目数
             }
         });
 
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
             @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-                                           int position, long arg3) {
-                // TODO Auto-generated method stub
-
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 getListView().setItemChecked(position, !mAdapter.isPositionChecked(position));
                 return false;
             }
         });
+
     }
 
     private class SelectionAdapter extends ArrayAdapter<String> {
 
         private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
 
-        public SelectionAdapter(Context context, int resource,
-                                int textViewResourceId, String[] objects) {
+        public SelectionAdapter(Context context, int resource, int textViewResourceId, String[] objects) {
             super(context, resource, textViewResourceId, objects);
         }
 
@@ -140,10 +120,10 @@ public class MainActivity extends ListActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = super.getView(position, convertView, parent);//let the adapter handle setting up the row views
-            v.setBackgroundColor(getResources().getColor(android.R.color.background_light)); //default color
+            v.setBackgroundColor(getResources().getColor(android.R.color.background_light)); //item未选中时的颜色
 
             if (mSelection.get(position) != null) {
-                v.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));// this is a selected position so make it red
+                v.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));//item被选中后的颜色
             }
             return v;
         }
