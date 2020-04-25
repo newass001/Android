@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
 **解题思路**
 
-本题还没怎么搞明白，暂时是直接先用老师给的参照代码
+新建一个SelectionAdapter类继承自ArrayAdapter,并使用一个hashmap记录被选中的item，以此实现选中item时改变被选中item的背景色
 
 
 **运行截图**
