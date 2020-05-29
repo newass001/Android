@@ -24,6 +24,7 @@ import android.provider.BaseColumns;
  * information that a client needs to access the provider as one or more data tables. A contract
  * is a public, non-extendable (final) class that contains constants defining column names and
  * URIs. A well-written client depends only on the constants in the contract.
+ * 契约类
  */
 public final class NotePad {
     public static final String AUTHORITY = "com.google.provider.NotePad";
@@ -80,6 +81,7 @@ public final class NotePad {
 
         /**
          * The content:// style URL for this table
+         * 匹配整个表对应的URI格式
          */
         public static final Uri CONTENT_URI =  Uri.parse(SCHEME + AUTHORITY + PATH_NOTES);
 
@@ -91,6 +93,7 @@ public final class NotePad {
             = Uri.parse(SCHEME + AUTHORITY + PATH_NOTE_ID);
 
         /**
+         * 匹配表中某一行对应的URI格式
          * The content URI match pattern for a single note, specified by its ID. Use this to match
          * incoming URIs or to construct an Intent.
          */

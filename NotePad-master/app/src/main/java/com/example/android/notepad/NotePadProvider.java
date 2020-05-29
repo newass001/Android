@@ -175,7 +175,7 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
     }
 
     /**
-    *
+    * 这个类帮助打开，创建，和更新数据库文件
     * This class helps open, create, and upgrade the database file. Set to package visibility
     * for testing purposes.
     */
@@ -184,11 +184,12 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
        DatabaseHelper(Context context) {
 
            // calls the super constructor, requesting the default cursor factory.
+           // 创建数据库
            super(context, DATABASE_NAME, null, DATABASE_VERSION);
        }
 
        /**
-        *
+        * 创建表
         * Creates the underlying database with table name and column names taken from the
         * NotePad class.
         */
@@ -236,6 +237,7 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
 
        // Creates a new helper object. Note that the database itself isn't opened until
        // something tries to access it, and it's only created if it doesn't already exist.
+       //实例化，这里调用后才创建数据库和表，上面只是先定义,表若存在不会重复创建
        mOpenHelper = new DatabaseHelper(getContext());
 
        // Assumes that any failures will be reported by a thrown exception.
@@ -252,7 +254,7 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
     * @throws IllegalArgumentException if the incoming URI pattern is invalid.
     */
    @Override
-   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
+   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, //selection与selectionArgs完成sql语句的where部分
            String sortOrder) {
 
        // Constructs a new query builder and sets its table name
@@ -261,6 +263,7 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
 
        /**
         * Choose the projection and adjust the "where" clause based on URI pattern-matching.
+        * 选择投影,即sql的select语句，设置要查询哪些列
         */
        switch (sUriMatcher.match(uri)) {
            // If the incoming URI is for notes, chooses the Notes projection
@@ -293,6 +296,7 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
 
 
        String orderBy;
+       // 如果没声明排序规则，则使用默认排序规则
        // If no sort order is specified, uses the default
        if (TextUtils.isEmpty(sortOrder)) {
            orderBy = NotePad.Notes.DEFAULT_SORT_ORDER;
@@ -521,6 +525,7 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
         // Gets the current system time in milliseconds
         Long now = Long.valueOf(System.currentTimeMillis());
 
+        // 以下为，如果values不包含各个属性的值，所对应的处理方式
         // If the values map doesn't contain the creation date, sets the value to the current time.
         if (values.containsKey(NotePad.Notes.COLUMN_NAME_CREATE_DATE) == false) {
             values.put(NotePad.Notes.COLUMN_NAME_CREATE_DATE, now);
@@ -550,8 +555,8 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
         // Performs the insert and returns the ID of the new note.
         long rowId = db.insert(
             NotePad.Notes.TABLE_NAME,        // The table to insert into.
-            NotePad.Notes.COLUMN_NAME_NOTE,  // A hack, SQLite sets this column value to null
-                                             // if values is empty.
+            NotePad.Notes.COLUMN_NAME_NOTE,  // A hack, SQLite sets this column value to null,
+                                             // if values is empty. 如果传入的NotePad.Notes.COLUMN_NAME_NOTE这一列对应的值是空值，即""，就把这列的值设置为null
             values                           // A map of column names, and the values to insert
                                              // into the columns.
         );
@@ -718,6 +723,7 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
 
 
                 // Does the update and returns the number of rows updated.
+                // count
                 count = db.update(
                     NotePad.Notes.TABLE_NAME, // The database table name.
                     values,                   // A map of column names and new values to use.
