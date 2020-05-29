@@ -39,17 +39,17 @@
 
 **(7)实现结果**
 
-**初始显示
+①初始显示
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhongres(1).jpg)
 ---
 
-**添加一条笔记
+②添加一条笔记
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhongres(2).jpg)
 ---
 
-**由下图可见排序功能没有问题*
+③添加后显示结果（可见排序功能没有问题)
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhongres(3).jpg)
 
