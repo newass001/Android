@@ -60,7 +60,7 @@ public class NotesList extends ListActivity {
     private static final String[] PROJECTION = new String[]{
             NotePad.Notes._ID, // 0
             NotePad.Notes.COLUMN_NAME_TITLE, // 1
-            NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE //2
+            NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE //2 增加此行代码
     };
 
     /**
