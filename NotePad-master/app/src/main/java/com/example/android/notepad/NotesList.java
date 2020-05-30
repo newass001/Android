@@ -26,8 +26,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,6 +41,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 /**
  * Displays a list of notes. Will display notes from the {@link Uri}
@@ -50,10 +54,8 @@ import android.widget.SimpleCursorAdapter;
  * {@link android.os.AsyncTask} object to perform operations asynchronously on a separate thread.
  */
 public class NotesList extends ListActivity {
-
     // For logging and debugging
     private static final String TAG = "NotesList";
-
 
     /**
      * The columns needed by the cursor adapter
@@ -75,18 +77,27 @@ public class NotesList extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.noteslist_view);
 
-        Button search_btn = (Button)findViewById(R.id.search_btn);
-        final EditText editText = findViewById(R.id.editText_search);
-        search_btn.setOnClickListener(new View.OnClickListener() {
+        EditText editText = findViewById(R.id.editText_search);
+        // 设置TextChangeListener以达到实时搜索的效果
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                onSearch(editText);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //获取输入框中的值并传递给onSearch
+                onSearch(s.toString());
             }
         });
-        // The user does not need to hold down the key to use menu shortcuts.
-        setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT);
+
 
         /* If no data is given in the Intent that started this Activity, then this Activity
          * was started when the intent filter matched a MAIN action. We should use the default
@@ -152,11 +163,11 @@ public class NotesList extends ListActivity {
         setListAdapter(adapter);
     }
 
-    public void  onSearch(EditText editText){
+    public void onSearch(String arg) {
         // 设置selection和selectionargs参数
         String selection = NotePad.Notes.COLUMN_NAME_TITLE + " LIKE ?";
-        String str = "%"+editText.getText().toString()+"%";
-        String[] selectionArgs = { str };
+        String str = "%" + arg + "%";
+        String[] selectionArgs = {str};
 
         Cursor cursor = managedQuery(
                 getIntent().getData(),            // Use the default content URI for the provider.
@@ -177,6 +188,7 @@ public class NotesList extends ListActivity {
                 dataColumns,
                 viewIDs
         );
+        // 重新设置Adapter
         setListAdapter(adapter);
     }
 

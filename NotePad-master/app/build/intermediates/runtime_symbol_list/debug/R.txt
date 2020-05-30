@@ -17,8 +17,7 @@ int id menu_revert 0x7f020007
 int id menu_save 0x7f020008
 int id note 0x7f020009
 int id ok 0x7f02000a
-int id search_btn 0x7f02000b
-int id title 0x7f02000c
+int id title 0x7f02000b
 int layout note_editor 0x7f030000
 int layout noteslist_item 0x7f030001
 int layout noteslist_view 0x7f030002
