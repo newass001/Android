@@ -267,7 +267,7 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
         */
        switch (sUriMatcher.match(uri)) {
            // If the incoming URI is for notes, chooses the Notes projection
-           case NOTES:
+           case NOTES: // 匹配整个表
                qb.setProjectionMap(sNotesProjectionMap);
                break;
 
@@ -275,7 +275,7 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
             * note ID projection, and appends "_ID = <noteID>" to the where clause, so that
             * it selects that single note
             */
-           case NOTE_ID:
+           case NOTE_ID: // 匹配表中某行数据
                qb.setProjectionMap(sNotesProjectionMap);
                qb.appendWhere(
                    NotePad.Notes._ID +    // the name of the ID column

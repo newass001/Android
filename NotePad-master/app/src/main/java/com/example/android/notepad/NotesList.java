@@ -16,8 +16,6 @@
 
 package com.example.android.notepad;
 
-import com.example.android.notepad.NotePad;
-
 import android.app.ListActivity;
 import android.content.ClipboardManager;
 import android.content.ClipData;
@@ -36,6 +34,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -53,6 +53,7 @@ public class NotesList extends ListActivity {
 
     // For logging and debugging
     private static final String TAG = "NotesList";
+
 
     /**
      * The columns needed by the cursor adapter
@@ -74,7 +75,16 @@ public class NotesList extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.noteslist_view);
 
+        Button search_btn = (Button)findViewById(R.id.search_btn);
+        final EditText editText = findViewById(R.id.editText_search);
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearch(editText);
+            }
+        });
         // The user does not need to hold down the key to use menu shortcuts.
         setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT);
 
@@ -103,6 +113,8 @@ public class NotesList extends ListActivity {
          *
          * Please see the introductory note about performing provider operations on the UI thread.
          */
+
+
         Cursor cursor = managedQuery(
                 getIntent().getData(),            // Use the default content URI for the provider.
                 PROJECTION,                       // Return the note ID and title for each note.
@@ -137,6 +149,34 @@ public class NotesList extends ListActivity {
         );
 
         // Sets the ListView's adapter to be the cursor adapter that was just created.
+        setListAdapter(adapter);
+    }
+
+    public void  onSearch(EditText editText){
+        // 设置selection和selectionargs参数
+        String selection = NotePad.Notes.COLUMN_NAME_TITLE + " LIKE ?";
+        String str = "%"+editText.getText().toString()+"%";
+        String[] selectionArgs = { str };
+
+        Cursor cursor = managedQuery(
+                getIntent().getData(),            // Use the default content URI for the provider.
+                PROJECTION,                       // Return the note ID and title for each note.
+                selection,                             // No where clause, return all records.
+                selectionArgs,                             // No where clause, therefore no where column values.
+                NotePad.Notes.DEFAULT_SORT_ORDER  // Use the default sort order.
+        );
+
+        String[] dataColumns = {NotePad.Notes.COLUMN_NAME_TITLE, NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE};
+        int[] viewIDs = {android.R.id.text1, android.R.id.text2};
+
+        SimpleCursorAdapter adapter
+                = new SimpleCursorAdapter(
+                this,                             // The Context for the ListView
+                R.layout.noteslist_item,          // Points to the XML for a list item
+                cursor,                           // The cursor to get items from
+                dataColumns,
+                viewIDs
+        );
         setListAdapter(adapter);
     }
 

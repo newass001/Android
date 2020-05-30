@@ -17,6 +17,7 @@
 <resources>
     <string name="app_name">NotePad</string>
     <string name="live_folder_name">Notes</string>
+    <string name="Search_hint">  Search notes</string>
 
     <string name="title_edit_title">Note title:</string>
     <string name="title_create">New note</string>
