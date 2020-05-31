@@ -57,14 +57,7 @@
 ---
 <br>
 
-**(2)新建一个noteslist_view.xml文件作为自定义的listview布局文件，因为要把搜索框放到这个界面里，所以需要手动写一个布局文件。
-因为使用了继承自ListActivity的getListView方法来获取布局，所以布局中的listview的id要注意设置为@android:id/list,不然会找不到这个        listview**
-
-![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(9).jpg)
----
-<br>
-
-**(3)在drawable文件夹下新建一个edittext_shape.xml文件作为搜索框的样式文件，让搜索框好看一些,实现效果是一个灰色背景的圆角矩形框**
+**(2)在drawable文件夹下新建一个edittext_shape.xml文件作为搜索框的样式文件，让搜索框好看一些,实现效果是一个灰色背景的圆角矩形框**
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
@@ -88,16 +81,41 @@
 ---
 <br>
 
-**(4)编辑NoteList.java文件,在onCreate方法中用setContentView()指定上面步骤(2)创建的自定义布局文件,并为搜索框添加监听，以实现实时搜索的效果**
+**(3)新建一个noteslist_view.xml文件作为自定义的listview布局文件，因为要把搜索框放到这个界面里，所以需要手动写一个布局文件。
+因为使用了继承自ListActivity的getListView方法来获取布局，所以布局中的listview的id要注意设置为@android:id/list,不然会找不到这个        listview**
+
+![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(9).jpg)
+
+**搜索框样式**
+
+![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(12).jpg)
+---
+<br>
+
+**(4)编辑NoteList.java文件,在onCreate方法中用setContentView()指定上面步骤(2)创建的自定义布局文件,并为搜索框添加监听，以实现实时搜索的效果,非常人性化,不需要每次搜索都手动去点按搜索键**
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(10).jpg)
 ---
 <br>
 
-**(5)实现onSearch方法**
+**(5)实现onSearch方法,设置通配符%来实现模糊搜索,重新定义与设置Adapter来实现搜索结果的显示**
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(11).jpg)
 ---
 <br>
 
+**(6)功能展示**
+①总体布局展示
+
+![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(13).jpg)
+
+②搜索功能展示
+
+![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(14).jpg)
+
+![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(15).jpg)
+
+
+---
+<br>
 
