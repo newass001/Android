@@ -38,7 +38,7 @@
 ---
 <br>
 
-**(7)实现效果(在后续有修改时间戳格式，因为涉及到排序问题，请在题二中查看，懒得重新编辑上半部分文档了)**
+**(7)实现效果(后续有修改时间戳格式，因为涉及到排序问题，请在题二(1)中查看，懒得重新编辑上半部分文档了)**
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhongres(1).jpg)
 ---
@@ -53,7 +53,7 @@
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(7).jpg)
 
-**可以看见时间戳显示格式与题一中不同，因为涉及到按时间戳排序的问题，所以修改了时间戳的格式**
+**↑可以看见时间戳显示格式与题一中不同，因为涉及到按时间戳排序的问题，所以修改了时间戳的格式**
 ---
 <br>
 
@@ -70,7 +70,7 @@
     <stroke
         android:width="1dp"
         android:color="#BDC7D8" />
-    <!--设置边距-->
+    <!--设置边距,因为边框四周有弧度，不设置边距的话，框中字体会碰到边框，不美观-->
     <padding
         android:bottom="5dp"
         android:left="5dp"
@@ -105,9 +105,11 @@
 <br>
 
 **(6)功能展示**
+
 ①总体布局展示
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(13).jpg)
+---
 
 ②搜索功能展示
 
@@ -115,7 +117,9 @@
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(15).jpg)
 
+**若搜索框中内容为空，则会显示全部内容**
 
+![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(16).jpg)
 ---
 <br>
 
