@@ -15,7 +15,8 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT"/><!--category.DEFAULT一定要设置，不然在选择浏览器时看不到该应用-->
+                <!--category.DEFAULT一定要设置，不然在选择浏览器时看不到该应用,因为default类别是intent默认就有的，所以必须要设置，不然匹配不到-->
+                <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data android:scheme="http" />
                 <data android:scheme="https" />
