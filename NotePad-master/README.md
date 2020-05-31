@@ -1,4 +1,5 @@
 # 期中实验
+---
 ## 一、NoteList中显示条目增加时间戳显示
 
 **(1)修改布局文件noteslist_item.xml,增加一个textview并加上整体布局**
@@ -37,19 +38,66 @@
 ---
 <br>
 
-**(7)实现结果**
-
-①初始显示
+**(7)实现效果(在后续有修改时间戳格式，因为涉及到排序问题，请在题二中查看，懒得重新编辑上半部分文档了)**
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhongres(1).jpg)
 ---
+<br>
 
-②添加一条笔记
 
-![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhongres(2).jpg)
+## 二、笔记查询功能
+
+**(1)再次修改布局文件notelist_item.xml,使用线性布局嵌套，实现每一个条目比之前多显示一个图标的界面，看起来更美观一些**
+
+![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(8).jpg)
+
+![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(7).jpg)
+
+**可以看见时间戳显示格式与题一中不同，因为涉及到按时间戳排序的问题，所以修改了时间戳的格式**
 ---
+<br>
 
-③添加后显示结果（可见排序功能没有问题)
+**(2)新建一个noteslist_view.xml文件作为自定义的listview布局文件，因为要把搜索框放到这个界面里，所以需要手动写一个布局文件。
+因为使用了继承自ListActivity的getListView方法来获取布局，所以布局中的listview的id要注意设置为@android:id/list,不然会找不到这个        listview**
 
-![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhongres(3).jpg)
+![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(9).jpg)
+---
+<br>
+
+**(3)在drawable文件夹下新建一个edittext_shape.xml文件作为搜索框的样式文件，让搜索框好看一些,实现效果是一个灰色背景的圆角矩形框**
+```
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- 设置框内填充颜色,若想设置为为透明背景色可用@android:color/transparent -->
+    <solid android:color="#C8C4C4" />
+    <!-- 设置框四周的弧度 -->
+    <corners android:radius="20dp" />
+    <!-- 设置边框高度和颜色 -->
+    <stroke
+        android:width="1dp"
+        android:color="#BDC7D8" />
+    <!--设置边距-->
+    <padding
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp" />
+</shape>
+```
+---
+<br>
+
+**(4)编辑NoteList.java文件,在onCreate方法中用setContentView()指定上面步骤(2)创建的自定义布局文件,并为搜索框添加监听，以实现实时搜索的效果**
+
+![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(10).jpg)
+---
+<br>
+
+**(5)实现onSearch方法**
+
+![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(11).jpg)
+---
+<br>
+
 
