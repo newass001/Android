@@ -93,7 +93,7 @@
 ---
 <br>
 
-**(4)编辑NoteList.java文件,在onCreate方法中用setContentView()指定上面步骤(2)创建的自定义布局文件,并为搜索框添加监听，以实现实时搜索的效果,非常人性化,不需要每次搜索都手动去点按搜索键**
+**(4)编辑NoteList.java文件,在onCreate方法中用setContentView()指定上面步骤(2)创建的自定义布局文件,并为搜索框添加监听，以实现实时搜索的效果,非常人性化。相比用按钮触发搜索，这样不需要每次搜索都手动去点按搜索键，方便不少**
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhong(10).jpg)
 ---
