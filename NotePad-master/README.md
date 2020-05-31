@@ -38,10 +38,12 @@
 ---
 <br>
 
-**(7)实现结果**
+**(7)实现效果(在后续有修改时间戳格式，因为涉及到排序问题，请在题二中查看，懒得重新编辑上半部分文档了)**
 
 ![image](https://github.com/newass001/Android/blob/master/ScreenShots/qizhongres(1).jpg)
 ---
+<br>
+
 
 ## 二、笔记查询功能
 
