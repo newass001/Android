@@ -93,7 +93,7 @@ public class NotesList extends ListActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                //获取输入框中的值并传递给onSearch
+                //获取输入框中的文本内容并传递给onSearch
                 onSearch(s.toString());
             }
         });
@@ -387,10 +387,12 @@ public class NotesList extends ListActivity {
         }
 
         // Inflate menu from XML resource
+        // 获取上下文菜单xml文件，并转化为可编程对象，扁平化
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.list_context_menu, menu);
 
         // Sets the menu header to be the title of the selected note.
+        // 设置上下文菜单标题
         menu.setHeaderTitle(cursor.getString(COLUMN_INDEX_TITLE));
 
         // Append to the
@@ -410,7 +412,7 @@ public class NotesList extends ListActivity {
      * This method is called when the user selects an item from the context menu
      * (see onCreateContextMenu()). The only menu items that are actually handled are DELETE and
      * COPY. Anything else is an alternative option, for which default handling should be done.
-     *
+     * 长按触发的事件处理
      * @param item The selected menu item
      * @return True if the menu item was DELETE, and no default processing is need, otherwise false,
      * which triggers the default handling of the item.
@@ -493,6 +495,7 @@ public class NotesList extends ListActivity {
     /**
      * This method is called when the user clicks a note in the displayed list.
      * <p>
+     * 点击条目的事件处理
      * This method handles incoming actions of either PICK (get data from the provider) or
      * GET_CONTENT (get or create data). If the incoming action is EDIT, this method sends a
      * new Intent to start NoteEditor.

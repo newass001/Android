@@ -531,7 +531,7 @@ public class NoteEditor extends Activity {
         ContentValues values = new ContentValues();
 
         // 12小时制，并在末尾显示am/pm标志
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a",Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/ HH:mm:ss",Locale.US);
         values.put(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, sdf.format(System.currentTimeMillis()));
 
         // If the action is to insert a new note, this creates an initial title for it.
