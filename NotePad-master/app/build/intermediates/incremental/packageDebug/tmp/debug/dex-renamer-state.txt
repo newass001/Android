@@ -1,4 +1,4 @@
-#Sun May 31 13:46:15 CST 2020
+#Mon Jun 22 04:44:30 CST 2020
 base.0=D\:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\build\\intermediates\\dex\\debug\\out\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

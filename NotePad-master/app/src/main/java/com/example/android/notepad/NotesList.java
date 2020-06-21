@@ -16,6 +16,9 @@
 
 package com.example.android.notepad;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import android.Manifest;
 import android.app.ListActivity;
 import android.content.ClipboardManager;
 import android.content.ClipData;
@@ -23,6 +26,7 @@ import android.content.ComponentName;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,7 +34,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,7 +44,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
+
+import com.baidu.speech.EventListener;
+import com.baidu.speech.EventManager;
+import com.baidu.speech.EventManagerFactory;
+import com.baidu.speech.asr.SpeechConstant;
+
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 /**
  * Displays a list of notes. Will display notes from the {@link Uri}
@@ -53,9 +65,12 @@ import android.widget.TextView;
  * application should use the {@link android.content.AsyncQueryHandler} or
  * {@link android.os.AsyncTask} object to perform operations asynchronously on a separate thread.
  */
-public class NotesList extends ListActivity {
+public class NotesList extends ListActivity implements EventListener {
     // For logging and debugging
     private static final String TAG = "NotesList";
+    protected EditText editText;//识别结果
+    protected Button startBtn;//开始识别，持续一定时间不说话会自动停止，需要再次打开
+    private EventManager asr;//语音识别核心库
 
     /**
      * The columns needed by the cursor adapter
@@ -80,7 +95,9 @@ public class NotesList extends ListActivity {
 
         setContentView(R.layout.noteslist_view);
 
-        EditText editText = findViewById(R.id.editText_search);
+        editText = findViewById(R.id.editText_search);
+        startBtn = (Button) findViewById(R.id.btn_speak);
+
         // 设置TextChangeListener以达到实时搜索的效果
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -97,6 +114,19 @@ public class NotesList extends ListActivity {
                 onSearch(s.toString());
             }
         });
+
+        startBtn.setOnClickListener(new View.OnClickListener() {//点击开始按钮
+            @Override
+            public void onClick(View v) {
+                asr.send(SpeechConstant.ASR_START, null, null, 0, 0);
+            }
+        });
+
+        initPermission();
+        //初始化EventManager对象
+        asr = EventManagerFactory.create(this, "asr");
+        //注册自己的输出事件类
+        asr.registerListener(this); //  EventListener 中 onEvent方法
 
 
         /* If no data is given in the Intent that started this Activity, then this Activity
@@ -413,6 +443,7 @@ public class NotesList extends ListActivity {
      * (see onCreateContextMenu()). The only menu items that are actually handled are DELETE and
      * COPY. Anything else is an alternative option, for which default handling should be done.
      * 长按触发的事件处理
+     *
      * @param item The selected menu item
      * @return True if the menu item was DELETE, and no default processing is need, otherwise false,
      * which triggers the default handling of the item.
@@ -526,5 +557,79 @@ public class NotesList extends ListActivity {
             // Intent's data is the note ID URI. The effect is to call NoteEdit.
             startActivity(new Intent(Intent.ACTION_EDIT, uri));
         }
+    }
+
+    /**
+     * android 6.0 以上需要动态申请权限
+     */
+    private void initPermission() {
+        String permissions[] = {Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.ACCESS_NETWORK_STATE,
+                Manifest.permission.INTERNET,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+
+        ArrayList<String> toApplyList = new ArrayList<String>();
+
+        for (String perm : permissions) {
+            if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this, perm)) {
+                toApplyList.add(perm);
+                //进入到这里代表没有权限
+            }
+        }
+        String tmpList[] = new String[toApplyList.size()];
+        if (!toApplyList.isEmpty()) {
+            ActivityCompat.requestPermissions(this, toApplyList.toArray(tmpList), 123);
+        }
+
+    }
+
+    /**
+     * 权限申请回调，可以作进一步处理
+     * ijj
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        // 此处为android 6.0以上动态授权的回调，用户自行实现。
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //发送取消事件
+        asr.send(SpeechConstant.ASR_CANCEL, "{}", null, 0, 0);
+        //退出事件管理器
+        // 必须与registerListener成对出现，否则可能造成内存泄露
+        asr.unregisterListener(this);
+    }
+
+    /**
+     * 自定义输出事件类 EventListener 回调方法
+     */
+    @Override
+    public void onEvent(String name, String params, byte[] data, int offset, int length) {
+
+        if (name.equals(SpeechConstant.CALLBACK_EVENT_ASR_PARTIAL)) {
+            // 识别相关的结果都在这里
+            if (params == null || params.isEmpty()) {
+                return;
+            }
+            if (params.contains("\"final_result\"")) {
+                // 一句话的最终识别结果
+                String regrex = "\\[(.*?),";  //使用正则表达式抽取我们需要的内容
+                Pattern pattern = Pattern.compile(regrex);
+                Matcher matcher = pattern.matcher(params);
+                if (matcher.find()) {
+                    int a = matcher.group(0).indexOf("[");
+                    int b = matcher.group(0).indexOf(",");
+                    editText.setText(matcher.group(0).substring(a + 2, b - 3));
+                }
+            }
+        }
+
     }
 }

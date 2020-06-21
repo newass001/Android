@@ -26,10 +26,20 @@
     android:targetSandboxVersion="2" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="29" />
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 蓝牙录音使用，不需要可以去除 -->
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:icon="@drawable/app_notes"
         android:label="@string/app_name"
@@ -148,6 +158,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.baidu.speech.APP_ID"
+            android:value="20390737" />
+        <meta-data
+            android:name="com.baidu.speech.API_KEY"
+            android:value="tIgT7dOfRKPh6I61GqMR1ghr" />
+        <meta-data
+            android:name="com.baidu.speech.SECRET_KEY"
+            android:value="LY9AsTNSuGIAyoiT7dla3auL9penXfVu" />
     </application>
 
 </manifest>

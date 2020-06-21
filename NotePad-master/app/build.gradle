@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.android.notepad"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 29
 
         testApplicationId "com.example.android.notepad.tests"
@@ -19,4 +19,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation project(path: ':core')
+
 }

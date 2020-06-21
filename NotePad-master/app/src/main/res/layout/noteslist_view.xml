@@ -5,33 +5,54 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- 在外层布局里将background设置成与Edittext相同可以达到看似
-    搜索图标在输入框开头的效果，显得更整体？更好看一些？-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/edittext_shape">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_search" />
-
-        <EditText
-            android:id="@+id/editText_search"
+        <!-- 在外层布局里将background设置成与Edittext相同可以达到看似
+        搜索图标在输入框开头的效果，显得更整体？更好看一些？-->
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="3dp"
             android:layout_weight="1"
-            android:background="@drawable/edittext_shape"
-            android:hint="@string/Search_hint"
-            android:inputType="text" />
+            android:background="@drawable/edittext_shape">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_search" />
+
+            <EditText
+                android:id="@+id/editText_search"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_shape"
+                android:hint="@string/Search_hint"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_speak"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/button_shape"
+            android:drawableStart="@android:drawable/ic_btn_speak_now"
+            android:drawableLeft="@android:drawable/ic_btn_speak_now"
+            android:paddingStart="2dp"
+            android:paddingLeft="2dp" />
 
     </LinearLayout>
 
+
     <ListView
         android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

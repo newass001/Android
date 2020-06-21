@@ -40,12 +40,12 @@
         "source": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\src\\main\\res\\menu\\list_options_menu.xml"
     },
     {
-        "merged": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_menu_revert.png.flat",
-        "source": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\src\\main\\res\\drawable\\ic_menu_revert.png"
-    },
-    {
         "merged": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_live_folder_notes.png.flat",
         "source": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\src\\main\\res\\drawable-ldpi\\live_folder_notes.png"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_menu_revert.png.flat",
+        "source": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\src\\main\\res\\drawable\\ic_menu_revert.png"
     },
     {
         "merged": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_live_folder_notes.png.flat",
@@ -94,5 +94,9 @@
     {
         "merged": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable_edittext_shape.xml.flat",
         "source": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\src\\main\\res\\drawable\\edittext_shape.xml"
+    },
+    {
+        "merged": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\build\\intermediates\\res\\merged\\debug\\drawable_button_shape.xml.flat",
+        "source": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\src\\main\\res\\drawable\\button_shape.xml"
     }
 ]
