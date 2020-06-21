@@ -18,7 +18,9 @@ package com.example.android.notepad;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.ClipboardManager;
 import android.content.ClipData;
@@ -34,9 +36,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
@@ -44,6 +48,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Switch;
 
 import com.baidu.speech.EventListener;
 import com.baidu.speech.EventManager;
@@ -89,6 +94,7 @@ public class NotesList extends ListActivity implements EventListener {
     /**
      * onCreate is called when Android starts this Activity from scratch.
      */
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,12 +121,35 @@ public class NotesList extends ListActivity implements EventListener {
             }
         });
 
-        startBtn.setOnClickListener(new View.OnClickListener() {//点击开始按钮
+         //以下是两套按钮交互方式
+//        startBtn.setOnClickListener(new View.OnClickListener() {//点击开始按钮开始识别
+//            @Override
+//            public void onClick(View v) {
+//                asr.send(SpeechConstant.ASR_START, null, null, 0, 0);
+//            }
+//        });
+
+        startBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                asr.send(SpeechConstant.ASR_START, null, null, 0, 0);
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        //按住事件发生后执行代码的区域
+                        asr.send(SpeechConstant.ASR_START, null, null, 0, 0);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {//松开按钮就结束识别
+                        //松开事件发生后执行代码的区域
+                        asr.send(SpeechConstant.ASR_STOP, null, null, 0, 0);
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                return false;
             }
         });
+
 
         initPermission();
         //初始化EventManager对象
@@ -147,7 +176,9 @@ public class NotesList extends ListActivity implements EventListener {
          * to be this Activity. The effect is that context menus are enabled for items in the
          * ListView, and the context menu is handled by a method in NotesList.
          */
-        getListView().setOnCreateContextMenuListener(this);
+        getListView().
+
+                setOnCreateContextMenuListener(this);
 
         /* Performs a managed query. The Activity handles closing and requerying the cursor
          * when needed.
@@ -191,11 +222,12 @@ public class NotesList extends ListActivity implements EventListener {
 
         // Sets the ListView's adapter to be the cursor adapter that was just created.
         setListAdapter(adapter);
+
     }
 
     public void onSearch(String arg) { //实现按标题或者内容查询
         // 设置selection和selectionargs参数
-        String selection = NotePad.Notes.COLUMN_NAME_TITLE+" OR "+NotePad.Notes.COLUMN_NAME_NOTE + " LIKE ?";
+        String selection = NotePad.Notes.COLUMN_NAME_TITLE + " OR " + NotePad.Notes.COLUMN_NAME_NOTE + " LIKE ?";
         String str = "%" + arg + "%";
         String[] selectionArgs = {str};
 

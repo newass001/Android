@@ -37,14 +37,14 @@
             android:id="@+id/btn_speak"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
-            android:layout_width="35dp"
+            android:layout_width="70dp"
             android:layout_height="35dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/button_shape"
             android:drawableStart="@android:drawable/ic_btn_speak_now"
             android:drawableLeft="@android:drawable/ic_btn_speak_now"
-            android:paddingStart="2dp"
-            android:paddingLeft="2dp" />
+            android:paddingStart="19dp"
+            android:paddingLeft="19dp" />
 
     </LinearLayout>
 
