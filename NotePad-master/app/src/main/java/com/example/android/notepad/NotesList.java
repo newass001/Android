@@ -193,9 +193,9 @@ public class NotesList extends ListActivity implements EventListener {
         setListAdapter(adapter);
     }
 
-    public void onSearch(String arg) {
+    public void onSearch(String arg) { //实现按标题或者内容查询
         // 设置selection和selectionargs参数
-        String selection = NotePad.Notes.COLUMN_NAME_TITLE + " LIKE ?";
+        String selection = NotePad.Notes.COLUMN_NAME_TITLE+" OR "+NotePad.Notes.COLUMN_NAME_NOTE + " LIKE ?";
         String str = "%" + arg + "%";
         String[] selectionArgs = {str};
 
