@@ -115,6 +115,10 @@
             </intent-filter>
         </activity>
 
+    <activity android:name=".NoteColor" android:theme="@android:style/Theme.Holo.Light.Dialog"
+        android:label="选择记事本紧急程度"
+        android:windowSoftInputMode="stateVisible"></activity>
+
     </application>
 
 </manifest>

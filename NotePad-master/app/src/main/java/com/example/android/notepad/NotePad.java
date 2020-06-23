@@ -46,6 +46,9 @@ public final class NotePad {
          */
         public static final String TABLE_NAME = "notes";
 
+        //背景颜色
+        public static final String COLUMN_NAME_BACK_COLOR="color";
+
         /*
          * URI definitions
          */
@@ -153,5 +156,17 @@ public final class NotePad {
          * <P>Type: INTEGER (long from System.curentTimeMillis())</P>
          */
         public static final String COLUMN_NAME_MODIFICATION_DATE = "modified";
+
+
+        /**
+         * 颜色对应的代码
+         */
+
+        public static final int DEFAULT_COLOR = 0; //白
+        public static final int YELLOW_COLOR = 1; //黄
+        public static final int BLUE_COLOR = 2; //蓝
+        public static final int GREEN_COLOR = 3; //绿
+        public static final int RED_COLOR = 4; //红
+
     }
 }

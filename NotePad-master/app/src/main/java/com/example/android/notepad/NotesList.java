@@ -16,8 +16,10 @@
 
 package com.example.android.notepad;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ListActivity;
@@ -30,7 +32,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -46,10 +50,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+
 import com.baidu.speech.EventListener;
 import com.baidu.speech.EventManager;
 import com.baidu.speech.EventManagerFactory;
 import com.baidu.speech.asr.SpeechConstant;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -71,14 +77,15 @@ public class NotesList extends ListActivity implements EventListener {
     protected EditText editText;//识别结果
     protected Button startBtn;//开始识别，持续一定时间不说话会自动停止，需要再次打开
     private EventManager asr;//语音识别核心库
-
+    private ListView lv_notesList;
     /**
      * The columns needed by the cursor adapter
      */
     private static final String[] PROJECTION = new String[]{
             NotePad.Notes._ID, // 0
             NotePad.Notes.COLUMN_NAME_TITLE, // 1
-            NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE //2 增加此行代码
+            NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, //2 增加此行代码
+            NotePad.Notes.COLUMN_NAME_BACK_COLOR //背景颜色
     };
 
     /**
@@ -116,7 +123,7 @@ public class NotesList extends ListActivity implements EventListener {
             }
         });
 
-         //以下是两套按钮交互方式
+        //以下是两套按钮交互方式
 //        startBtn.setOnClickListener(new View.OnClickListener() {//点击开始按钮开始识别
 //            @Override
 //            public void onClick(View v) {
@@ -206,8 +213,8 @@ public class NotesList extends ListActivity implements EventListener {
         int[] viewIDs = {android.R.id.text1, android.R.id.text2};
 
         // Creates the backing adapter for the ListView.
-        SimpleCursorAdapter adapter
-                = new SimpleCursorAdapter(
+        ListAdapter adapter
+                = new ListAdapter(
                 this,                             // The Context for the ListView
                 R.layout.noteslist_item,          // Points to the XML for a list item
                 cursor,                           // The cursor to get items from
@@ -222,7 +229,7 @@ public class NotesList extends ListActivity implements EventListener {
 
     public void onSearch(String arg) { //实现按标题或者内容查询
         // 设置selection和selectionargs参数
-        String selection = NotePad.Notes.COLUMN_NAME_TITLE + " OR " + NotePad.Notes.COLUMN_NAME_NOTE + " LIKE ?";
+        String selection = NotePad.Notes.COLUMN_NAME_TITLE + " LIKE ?";
         String str = "%" + arg + "%";
         String[] selectionArgs = {str};
 
@@ -237,8 +244,8 @@ public class NotesList extends ListActivity implements EventListener {
         String[] dataColumns = {NotePad.Notes.COLUMN_NAME_TITLE, NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE};
         int[] viewIDs = {android.R.id.text1, android.R.id.text2};
 
-        SimpleCursorAdapter adapter
-                = new SimpleCursorAdapter(
+        ListAdapter adapter
+                = new ListAdapter(
                 this,                             // The Context for the ListView
                 R.layout.noteslist_item,          // Points to the XML for a list item
                 cursor,                           // The cursor to get items from
@@ -476,6 +483,7 @@ public class NotesList extends ListActivity implements EventListener {
      * which triggers the default handling of the item.
      * @throws ClassCastException
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         // The data from the menu item.
@@ -545,6 +553,21 @@ public class NotesList extends ListActivity implements EventListener {
 
                 // Returns to the caller and skips further processing.
                 return true;
+
+            case R.id.context_share:
+                //share note
+                String[] PROJECTION = new String[]{NotePad.Notes.COLUMN_NAME_NOTE};
+                Cursor cursor = getContentResolver().query(noteUri,PROJECTION,null,null,null);
+                assert cursor != null;
+                if (cursor.moveToFirst()) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_TEXT, cursor.getString(0));
+                    intent.setType("text/plain");
+                    startActivity(intent);
+                }
+                cursor.close();
+
             default:
                 return super.onContextItemSelected(item);
         }

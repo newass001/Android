@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Androidstudio\\AndroidProject\\NotePad-master\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-az\\values-az.xml",
+            "outputFile": "D:\\Androidstudio\\AndroidProjectLearing\\NotePad-master\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-az\\values-az.xml",
             "map": [
                 {
                     "source": "C:\\Users\\11030\\.gradle\\caches\\transforms-2\\files-2.1\\1cd7eff88f5e86d0249af2958bf465f0\\core-1.1.0\\res\\values-az\\values-az.xml",

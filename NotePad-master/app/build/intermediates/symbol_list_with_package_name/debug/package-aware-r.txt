@@ -602,6 +602,7 @@ drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
 drawable button_shape
 drawable edittext_shape
+drawable ic_menu_color
 drawable ic_menu_compose
 drawable ic_menu_delete
 drawable ic_menu_edit
@@ -696,11 +697,17 @@ id checkbox
 id checked
 id chronometer
 id collapseActionView
+id color_blue
+id color_green
+id color_red
+id color_white
+id color_yellow
 id content
 id contentPanel
 id context_copy
 id context_delete
 id context_open
+id context_share
 id custom
 id customPanel
 id decor_content_parent
@@ -727,6 +734,7 @@ id line3
 id listMode
 id list_item
 id menu_add
+id menu_color
 id menu_delete
 id menu_paste
 id menu_revert
@@ -843,6 +851,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_note_color
 layout common_mini
 layout custom_dialog
 layout note_editor
